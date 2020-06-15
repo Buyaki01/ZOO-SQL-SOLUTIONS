@@ -50,3 +50,24 @@ ORDER BY whn
 -- This will give different results if data is missing.
 -- Show the number of new cases in Italy for each week - show Monday only.
 -- In the sample query we JOIN this week tw with last week lw using the DATE_ADD function.
+
+-- QUESTION 6
+-- The query shown shows the number of confirmed cases together with the world ranking for cases.
+-- United States has the highest number, Spain is number 2...
+-- Notice that while Spain has the second highest confirmed cases, Italy has the second highest number of deaths due to the virus.
+-- Include the ranking for the number of deaths in the table.
+
+SELECT 
+   name,
+   confirmed,
+   RANK() OVER (ORDER BY confirmed DESC) rc,
+   deaths,
+   RANK() OVER (ORDER BY deaths DESC) rc
+  FROM covid
+WHERE whn = '2020-04-20'
+ORDER BY confirmed DESC
+
+-- QUESTION 7
+-- The query shown includes a JOIN t the world table so we can access the total population of each country and calculate infection rates (in cases per 100,000).
+-- Show the infect rate ranking for each country. 
+-- Only include countries with a population of at least 10 million.
